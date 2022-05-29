@@ -45,36 +45,49 @@ generate_names('D', 5)
 # Task3
 
 class SynAnt:
+    # constructor
     def __init__(self, word_list):
+        # the list of words, for which synonyms and/or antonyms should be found is given via constructor argument
         self.word_list = word_list
+        # initialize dictionaries for synonyms and antonyms
         self.synonyms = dict()
         self.antonyms = dict()
 
     def find_synonyms(self):
         print("Getting Synonyms")
-        for index, word in enumerate(self.word_list):
+        # loop through every word in the word_list
+        for word in self.word_list:
+            # get synnets from nltk package
             syns = wordnet.synsets(word)
             syns_list = []
+            # if no synonyms were found, set the corresponding dictionary value to a predefined string
             if len(syns) == 0:
                 self.synonyms[word] = "No synonyms found in wordnet"
             else:
+                # loop through each synonym and add it to a list of synonyms for the current word
                 for syn in syns:
                     for l in syn.lemmas():
                         syns_list.append((l.name()))
+                # put the list of synonyms in the synonyms-dictionary of the current word
                 self.synonyms[word] = syns_list
             print("Word: {0} | Synonyms: {1}".format(word, self.synonyms[word]))
 
     def find_antonyms(self):
         print("Getting Antonyms")
-        for index, word in enumerate(self.word_list):
+        # loop through every word in the word_list
+        for word in self.word_list:
+            # get synnets from nltk package
             syns = wordnet.synsets(word)
             antonyms_list: list = []
+            # loop through each antonym and add it to a list of synonyms for the current word
             for syn in syns:
                 for l in syn.lemmas():
                     if l.antonyms():
                         antonyms_list.append((l.antonyms()[0].name()))
+            # if no antonyms were found, set the corresponding dictionary value to a predefined string
             if len(antonyms_list) == 0:
                 self.antonyms[word] = "No antonyms found in wordnet"
+            # put the list of antonyms in the antonyms-dictionary of the current word
             else:
                 self.antonyms[word] = antonyms_list
             print("Word: {0} | Antonyms: {1}".format(word, self.antonyms[word]))
