@@ -90,6 +90,7 @@ class SynAnt:
             # put the list of antonyms in the antonyms-dictionary of the current word
             else:
                 self.antonyms[word] = antonyms_list
+            # building the string to print and print it
             print("Word: {0} | Antonyms: {1}".format(word, self.antonyms[word]))
 
 
